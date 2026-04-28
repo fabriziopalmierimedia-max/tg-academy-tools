@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>T&G Milan Academy · End of Course Questionnaire</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --surface: #1A1A1A;
+    --surface2: #222222;
+    --text: #F5F0E8;
+    --muted: #888888;
+    --border: rgba(201,168,76,0.2);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none;
+    z-index:0;
+    opacity:0.4;
+  }
+  .wrapper {
+    max-width:680px;
+    margin:0 auto;
+    padding:0 24px 80px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* HEADER */
+  header {
+    padding:28px 0 32px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:40px;
+    text-align:center;
+  }
+  .logo-wrap {
+    display:block;
+    margin:0 auto 24px;
+    width:280px;
+    max-width:80%;
+  }
+  .logo-wrap img {
+    width:100%;
+    height:auto;
+    mix-blend-mode: screen;
+  }
+  .subtitle {
+    font-size:11px;
+    letter-spacing:0.3em;
+    color:var(--text);
+    text-transform:uppercase;
+    margin-top:10px;
+    font-weight:400;
+  }
+  .hero-photo {
+    width:calc(100% + 48px);
+    margin-left:-24px;
+    display:block;
+    height:200px;
+    object-fit:cover;
+    object-position:center 25%;
+    opacity:0.8;
+    margin-bottom:0;
+  }
+  .hero-wrap {
+    position:relative;
+    margin:0 -24px;
+    margin-bottom:0;
+  }
+  .hero-overlay {
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to bottom, rgba(10,10,10,0.2), rgba(10,10,10,0.9));
+  }
+  .intro-text {
+    font-size:13px;
+    color:var(--text);
+    line-height:1.7;
+    margin-top:16px;
+    font-weight:300;
+    font-style:italic;
+    max-width:500px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size:9px;
+    letter-spacing:0.45em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:500;
+  }
+  .section-label::after {
+    content:'';
+    flex:1;
+    height:1px;
+    background:var(--border);
+  }
+
+  /* FORM BLOCKS */
+  .feedback-block {
+    background:var(--surface);
+    border:1px solid var(--border);
+    padding:28px 24px;
+    margin-bottom:16px;
+  }
+  .feedback-block h3 {
+    font-family:'Jost',sans-serif;
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--text);
+    margin-bottom:6px;
+  }
+  .feedback-block .desc {
+    font-size:12px;
+    color:var(--text);
+    margin-bottom:18px;
+    font-weight:300;
+    letter-spacing:0.03em;
+    line-height:1.6;
+  }
+
+  /* TEXT / TEXTAREA INPUTS */
+  textarea, input[type="text"], input[type="date"] {
+    width:100%;
+    background:var(--dark);
+    border:1px solid var(--border);
+    color:var(--text);
+    font-family:'Jost',sans-serif;
+    font-size:14px;
+    font-weight:300;
+    padding:14px 16px;
+    outline:none;
+    transition:border-color 0.2s;
+    letter-spacing:0.05em;
+    margin-top:6px;
+    -webkit-appearance:none;
+  }
+  textarea { resize:vertical; min-height:80px; }
+  textarea::placeholder, input::placeholder { color:#444; }
+  textarea:focus, input:focus { border-color:var(--gold); }
+
+  input[type="date"]::-webkit-calendar-picker-indicator { filter:invert(0.5); }
+
+  label.field-label {
+    font-size:10px;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--text);
+    display:block;
+    font-weight:500;
+  }
+
+  /* YES/NO & CHOICE BUTTONS */
+  .choice-group { display:flex; gap:10px; flex-wrap:wrap; margin-top:4px; }
+  .choice-group input { display:none; }
+  .choice-group label {
+    cursor:pointer;
+    padding:10px 20px;
+    border:1px solid var(--border);
+    background:transparent;
+    transition:all 0.15s;
+    font-family:'Jost',sans-serif;
+    font-size:12px;
+    font-weight:400;
+    letter-spacing:0.12em;
+    color:var(--muted);
+    text-transform:uppercase;
+  }
+  .choice-group input:checked + label {
+    border-color:var(--gold);
+    background:rgba(201,168,76,0.1);
+    color:var(--gold-light);
+  }
+  .choice-group label:hover { border-color:rgba(201,168,76,0.5); color:var(--text); }
+
+  /* 4-LEVEL RATING */
+  .rating-4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:8px; margin-top:4px; }
+  .rating-4 input { display:none; }
+  .rating-4 label {
+    cursor:pointer;
+    padding:12px 8px;
+    border:1px solid var(--border);
+    background:transparent;
+    transition:all 0.15s;
+    font-family:'Jost',sans-serif;
+    font-size:11px;
+    font-weight:400;
+    letter-spacing:0.08em;
+    color:var(--muted);
+    text-transform:uppercase;
+    text-align:center;
+  }
+  .rating-4 input:checked + label {
+    border-color:var(--gold);
+    background:rgba(201,168,76,0.1);
+    color:var(--gold-light);
+  }
+  .rating-4 label:hover { border-color:rgba(201,168,76,0.5); color:var(--text); }
+
+  /* SPEED RATING */
+  .speed-group { display:flex; gap:10px; flex-wrap:wrap; margin-top:4px; }
+  .speed-group input { display:none; }
+  .speed-group label {
+    cursor:pointer;
+    padding:10px 28px;
+    border:1px solid var(--border);
+    background:transparent;
+    transition:all 0.15s;
+    font-family:'Jost',sans-serif;
+    font-size:12px;
+    font-weight:400;
+    letter-spacing:0.12em;
+    color:var(--muted);
+    text-transform:uppercase;
+  }
+  .speed-group input:checked + label {
+    border-color:var(--gold);
+    background:rgba(201,168,76,0.1);
+    color:var(--gold-light);
+  }
+  .speed-group label:hover { border-color:rgba(201,168,76,0.5); color:var(--text); }
+
+  .field-row { margin-bottom:18px; }
+  .field-row:last-child { margin-bottom:0; }
+
+  /* SUBMIT BUTTON */
+  .wa-btn {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    width:100%;
+    padding:18px 32px;
+    background:transparent;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    font-family:'Jost',sans-serif;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:all 0.2s;
+    margin-top:32px;
+  }
+  .wa-btn:hover { background:var(--gold); color:var(--black); }
+
+  /* THANK YOU */
+  #thankyou {
+    display:none;
+    text-align:center;
+    padding:60px 24px;
+    border:1px solid var(--border);
+    margin-top:32px;
+  }
+  #thankyou .big {
+    font-family:'Jost',sans-serif;
+    font-size:52px;
+    font-weight:200;
+    letter-spacing:0.15em;
+    color:var(--gold);
+    margin-bottom:16px;
+  }
+  #thankyou p {
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.8;
+  }
+
+  .footer-note {
+    text-align:center;
+    font-size:10px;
+    letter-spacing:0.3em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-top:48px;
+    padding-top:24px;
+    border-top:1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <a class="logo-wrap" href="#">
+      <!-- Replace with your logo image -->
+      <!-- <img src="logo.png" alt="TONI&GUY Milan Academy"> -->
+    </a>
+    <div class="subtitle">End of Course Questionnaire</div>
+    <p class="intro-text">We kindly ask you to complete the following questionnaire so that you can provide us with helpful advice and suggestions, in order to further improve the quality of our courses.</p>
+  </header>
+
+  <form id="feedbackForm">
+
+    <!-- PERSONAL DETAILS -->
+    <div class="section-label">Details</div>
+
+    <div class="feedback-block">
+      <div class="field-row">
+        <label class="field-label">Date</label>
+        <input type="date" id="data_corso">
+      </div>
+      <div class="field-row">
+        <label class="field-label">Full Name</label>
+        <input type="text" id="nome" placeholder="e.g. Mario Rossi">
+      </div>
+      <div class="field-row">
+        <label class="field-label">Which course did you attend?</label>
+        <input type="text" id="corso_frequentato" placeholder="Write here…">
+      </div>
+      <div class="field-row">
+        <label class="field-label" style="margin-bottom:10px;">Is this the first course you have attended at our Academy?</label>
+        <div class="choice-group">
+          <input type="radio" name="primo_corso" id="pc_si" value="Yes">
+          <label for="pc_si">Yes</label>
+          <input type="radio" name="primo_corso" id="pc_no" value="No">
+          <label for="pc_no">No</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE COURSE -->
+    <div class="section-label">The Course</div>
+
+    <div class="feedback-block">
+      <h3>How did you find the course?</h3>
+      <div class="rating-4">
+        <input type="radio" name="valutazione_corso" id="vc1" value="Not adequate">
+        <label for="vc1">Not adequate</label>
+        <input type="radio" name="valutazione_corso" id="vc2" value="Average">
+        <label for="vc2">Average</label>
+        <input type="radio" name="valutazione_corso" id="vc3" value="Good">
+        <label for="vc3">Good</label>
+        <input type="radio" name="valutazione_corso" id="vc4" value="Excellent">
+        <label for="vc4">Excellent</label>
+      </div>
+      <div style="margin-top:16px;">
+        <label class="field-label">Why?</label>
+        <textarea id="motivo_corso" placeholder="Write here..."></textarea>
+      </div>
+    </div>
+
+    <div class="feedback-block">
+      <h3>Teachers' professionalism</h3>
+      <div class="rating-4">
+        <input type="radio" name="professionalita" id="pr1" value="Not adequate">
+        <label for="pr1">Not adequate</label>
+        <input type="radio" name="professionalita" id="pr2" value="Average">
+        <label for="pr2">Average</label>
+        <input type="radio" name="professionalita" id="pr3" value="Good">
+        <label for="pr3">Good</label>
+        <input type="radio" name="professionalita" id="pr4" value="Excellent">
+        <label for="pr4">Excellent</label>
+      </div>
+      <div style="margin-top:16px;">
+        <label class="field-label">Why?</label>
+        <textarea id="motivo_prof" placeholder="Write here..."></textarea>
+      </div>
+    </div>
+
+    <div class="feedback-block">
+      <h3>Did you enjoy the topics covered?</h3>
+      <div class="choice-group" style="margin-bottom:16px;">
+        <input type="radio" name="argomenti" id="arg_si" value="Yes">
+        <label for="arg_si">Yes</label>
+        <input type="radio" name="argomenti" id="arg_no" value="No">
+        <label for="arg_no">No</label>
+        <input type="radio" name="argomenti" id="arg_parz" value="Partly">
+        <label for="arg_parz">Partly</label>
+      </div>
+      <p class="desc" style="color:var(--text);font-size:13px;line-height:1.7;margin-top:4px;">Are there any courses you would add, or a different way of delivering the course? Your opinion matters and helps us improve!</p>
+      <textarea id="motivo_argomenti" placeholder="Write here…"></textarea>
+    </div>
+
+    <div class="feedback-block">
+      <h3>Did the content meet your expectations?</h3>
+      <p class="desc">In what way do you think the course could be improved?</p>
+      <textarea id="aspettative" placeholder="Write here..."></textarea>
+    </div>
+
+    <!-- ACADEMY & BOOKING -->
+    <div class="section-label">Academy &amp; Booking</div>
+
+    <div class="feedback-block">
+      <h3>How did you find out about T&amp;G Academy?</h3>
+      <div class="choice-group">
+        <input type="radio" name="conoscenza" id="con1" value="Website">
+        <label for="con1">Website</label>
+        <input type="radio" name="conoscenza" id="con2" value="Social Media">
+        <label for="con2">Social Media</label>
+        <input type="radio" name="conoscenza" id="con3" value="Word of mouth">
+        <label for="con3">Word of mouth</label>
+        <input type="radio" name="conoscenza" id="con4" value="Agent">
+        <label for="con4">Agent</label>
+        <input type="radio" name="conoscenza" id="con5" value="Shows/Seminars">
+        <label for="con5">Shows / Seminars</label>
+        <input type="radio" name="conoscenza" id="con6" value="Other">
+        <label for="con6">Other</label>
+      </div>
+      <div style="margin-top:12px;">
+        <label class="field-label">If other, please specify</label>
+        <input type="text" id="conoscenza_altro" placeholder="...">
+      </div>
+    </div>
+
+    <div class="feedback-block">
+      <h3>How did you book your course?</h3>
+      <div class="choice-group">
+        <input type="radio" name="prenotazione" id="pre1" value="By phone">
+        <label for="pre1">By phone</label>
+        <input type="radio" name="prenotazione" id="pre2" value="In person">
+        <label for="pre2">In person</label>
+        <input type="radio" name="prenotazione" id="pre4" value="Via agent">
+        <label for="pre4">Via agent</label>
+        <input type="radio" name="prenotazione" id="pre5" value="Other">
+        <label for="pre5">Other</label>
+      </div>
+    </div>
+
+    <div class="feedback-block">
+      <h3>How did you find the booking process?</h3>
+      <div class="speed-group">
+        <input type="radio" name="velocita" id="vel1" value="Slow">
+        <label for="vel1">Slow</label>
+        <input type="radio" name="velocita" id="vel2" value="Fast">
+        <label for="vel2">Fast</label>
+      </div>
+      <div style="margin-top:16px;">
+        <label class="field-label">If not effective, why?</label>
+        <textarea id="motivo_prenotazione" placeholder="Write here..."></textarea>
+      </div>
+    </div>
+
+    <div class="feedback-block">
+      <h3>Reception welcome service</h3>
+      <div class="rating-4">
+        <input type="radio" name="reception" id="rec1" value="Not adequate">
+        <label for="rec1">Not adequate</label>
+        <input type="radio" name="reception" id="rec2" value="Average">
+        <label for="rec2">Average</label>
+        <input type="radio" name="reception" id="rec3" value="Good">
+        <label for="rec3">Good</label>
+        <input type="radio" name="reception" id="rec4" value="Excellent">
+        <label for="rec4">Excellent</label>
+      </div>
+      <div style="margin-top:16px;">
+        <label class="field-label">Why?</label>
+        <textarea id="motivo_reception" placeholder="Write here..."></textarea>
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="section-label">Products</div>
+
+    <div class="feedback-block">
+      <div class="field-row">
+        <label class="field-label" style="margin-bottom:10px;">Were you already familiar with the products used during the course?</label>
+        <div class="choice-group">
+          <input type="radio" name="conosceva_prodotti" id="cp_si" value="Yes">
+          <label for="cp_si">Yes</label>
+          <input type="radio" name="conosceva_prodotti" id="cp_no" value="No">
+          <label for="cp_no">No</label>
+        </div>
+      </div>
+      <div class="field-row">
+        <label class="field-label">Which products are used in your salon?</label>
+        <input type="text" id="prodotti_salone" placeholder="Write here…">
+      </div>
+      <div class="field-row">
+        <label class="field-label" style="margin-bottom:10px;">Was the use of products explained to you adequately?</label>
+        <div class="choice-group">
+          <input type="radio" name="spiegazione_prodotti" id="sp_si" value="Yes">
+          <label for="sp_si">Yes</label>
+          <input type="radio" name="spiegazione_prodotti" id="sp_no" value="No">
+          <label for="sp_no">No</label>
+          <input type="radio" name="spiegazione_prodotti" id="sp_parz" value="Partly">
+          <label for="sp_parz">Partly</label>
+        </div>
+      </div>
+      <div class="field-row">
+        <label class="field-label" style="margin-bottom:10px;">Would you be interested in receiving further information about the products?</label>
+        <div class="choice-group">
+          <input type="radio" name="info_prodotti" id="ip_si" value="Yes">
+          <label for="ip_si">Yes</label>
+          <input type="radio" name="info_prodotti" id="ip_no" value="No">
+          <label for="ip_no">No</label>
+        </div>
+      </div>
+      <div class="field-row">
+        <label class="field-label" style="margin-bottom:10px;">Would you be interested in a potential franchise? <span style="color:var(--text);font-size:10px;opacity:0.7;">(salon owners only)</span></label>
+        <div class="choice-group">
+          <input type="radio" name="affiliazione" id="af_si" value="Yes">
+          <label for="af_si">Yes</label>
+          <input type="radio" name="affiliazione" id="af_no" value="No">
+          <label for="af_no">No</label>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" id="submitBtn" class="wa-btn" onclick="sendForm()">
+      Submit questionnaire
+    </button>
+
+  </form>
+
+  <div id="thankyou">
+    <div class="big">Thank you</div>
+    <p>Your questionnaire has been submitted.<br>Your feedback helps us improve.</p>
+  </div>
+
+  <div class="footer-note">Toni&amp;Guy Milan Academy &middot; Via Settembrini &middot; Milano</div>
+
+</div>
+
+<script>
+  function getVal(id) {
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+  function getRadio(name) {
+    var checked = document.querySelector('input[name="' + name + '"]:checked');
+    return checked ? checked.value : '-';
+  }
+
+  function sendForm() {
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    var data = {
+      'Date': getVal('data_corso'),
+      'Full Name': getVal('nome'),
+      'Course attended': getVal('corso_frequentato'),
+      'First course': getRadio('primo_corso'),
+      'Course rating': getRadio('valutazione_corso'),
+      'Course rating reason': getVal('motivo_corso'),
+      'Teacher professionalism': getRadio('professionalita'),
+      'Professionalism reason': getVal('motivo_prof'),
+      'Topics enjoyed': getRadio('argomenti'),
+      'Topics reason': getVal('motivo_argomenti'),
+      'Content met expectations': getVal('aspettative'),
+      'How found Academy': getRadio('conoscenza'),
+      'Other source': getVal('conoscenza_altro'),
+      'Booking method': getRadio('prenotazione'),
+      'Booking speed': getRadio('velocita'),
+      'Booking reason': getVal('motivo_prenotazione'),
+      'Reception': getRadio('reception'),
+      'Reception reason': getVal('motivo_reception'),
+      'Knew products': getRadio('conosceva_prodotti'),
+      'Salon products': getVal('prodotti_salone'),
+      'Product explanation': getRadio('spiegazione_prodotti'),
+      'Interested in product info': getRadio('info_prodotti'),
+      'Interested in franchise': getRadio('affiliazione')
+    };
+
+    fetch('https://script.google.com/macros/s/AKfycbzoAFAb-5V7crKJlfQtl4jsg3MVf-tzd2lzbW_YyDxiwEFN_N41z-L3JZg-yrjg_nLD/exec', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function() {
+      document.getElementById('feedbackForm').style.display = 'none';
+      document.getElementById('thankyou').style.display = 'block';
+    }).catch(function() {
+      document.getElementById('feedbackForm').style.display = 'none';
+      document.getElementById('thankyou').style.display = 'block';
+    });
+  }
+</script>
+</body>
+</html>
